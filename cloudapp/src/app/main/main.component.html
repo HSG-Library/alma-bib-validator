@@ -1,0 +1,77 @@
+<div class="record-expander-main">
+  <div class="eca-actions">
+    <button
+      mat-icon-button
+      (click)="reset()"
+      [disabled]="!selectedEntity || (loader.isLoading | async)"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="validate()"
+      [disabled]="!selectedEntity || (loader.isLoading | async)"
+    >
+      Validate
+    </button>
+  </div>
+
+  @if (entities.length === 0 && !autoSelecting) {
+    <div class="no-entities-message">
+      <mat-icon color="primary">info</mat-icon>
+      <p>
+        No entities selected. Please select a bibliographic record to validate.
+      </p>
+    </div>
+  }
+
+  @if (entities.length > 0 && !autoSelecting) {
+    <div class="entities-list">
+      <mat-action-list [ngClass]="{ hidden: selectedEntity }">
+        @for (entity of entities; track entity.id) {
+          <mat-list-item
+            matTooltip="{{ entity.description }}"
+            [matTooltipShowDelay]="800"
+            (click)="selectRecord(entity)"
+          >
+            <mat-icon matListItemIcon color="primary">library_books</mat-icon>
+            <span matListItemTitle class="entity-description">{{
+              entity.description
+            }}</span>
+            <span matListItemLine class="entity-description">{{
+              entity.id
+            }}</span>
+          </mat-list-item>
+        }
+      </mat-action-list>
+    </div>
+  }
+
+  @if (selectedEntity) {
+    <div class="selected-container">
+      <div class="selected-head">
+        <h1 class="entity-title">{{ selectedEntity.title }}</h1>
+        <div class="entity-subtitle">{{ selectedEntity.mms_id }}</div>
+      </div>
+
+      <app-validator-list
+        [validators]="availableValidators"
+        [validatorResults]="validatorResults"
+      ></app-validator-list>
+
+      <app-marc-record-table [marcRecord]="marcRecord"></app-marc-record-table>
+
+      @if (loader.isLoading | async) {
+        <div class="loading-shade">
+          <mat-spinner
+            diameter="50"
+            [mode]="(loader.mode | async) || 'indeterminate'"
+            [value]="loader.progress | async"
+          ></mat-spinner>
+          <p class="loading-info">{{ status.message | async }}</p>
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,19 @@
+{
+   "id": "bib-validator",
+   "title": "Bib-Validator",
+   "subtitle": "Validate the MARC XML of Bib-Records",
+   "author": "Jonas Furrer",
+   "license": "LICENSE",
+   "description": "Validate a Bib-Record against a set of predefined validators.",
+   "entities": [
+      "BIB_MMS"
+   ],
+   "icon": {
+      "type": "url",
+      "value": "/assets/alma_bib_validate_icon.png"
+   },
+   "fullscreen": {
+      "allow": true,
+      "open": false
+   }
+}

@@ -1,0 +1,58 @@
+.marc {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+  table-layout: fixed;
+
+  tr:nth-child(even) {
+    background-color: #d9e7fc;
+  }
+
+  tr:nth-child(odd) {
+    background-color: white;
+  }
+
+  td {
+    padding: 2px;
+    vertical-align: top;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  td:nth-child(1) {
+    width: 0px;
+  }
+
+  td:nth-child(2) {
+    width: 30px;
+  }
+
+  td:nth-child(3) {
+    width: 10px;
+  }
+
+  td:nth-child(4) {
+    width: 10px;
+  }
+
+  td:nth-child(5) {
+    width: auto;
+  }
+
+  td span.tag {
+    color: rgb(128, 0, 128);
+  }
+
+  td span.ind {
+    color: rgb(0, 128, 0);
+  }
+
+  td span.subfield {
+    color: rgb(0, 0, 255);
+    padding-right: 5px;
+  }
+
+  td span.value {
+    color: #000;
+  }
+}

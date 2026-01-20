@@ -1,0 +1,51 @@
+@if (marcRecord) {
+  <mat-expansion-panel
+    [expanded]="isExpanded"
+    (opened)="isExpanded = true"
+    (closed)="isExpanded = false"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title> MARC Record </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <table class="marc">
+      <tr>
+        <td><span class="tag"></span></td>
+        <td><span class="tag">LDR</span></td>
+        <td><span class="ind"> </span></td>
+        <td><span class="ind"> </span></td>
+        <td>
+          <span class="value">{{ formatLeader(getLeader()) }}</span>
+        </td>
+      </tr>
+      @for (field of getFields(); track $index) {
+        <tr>
+          <td>
+            <span class="tag"></span>
+          </td>
+          <td>
+            <span class="tag">{{ field['tag'] }}</span>
+          </td>
+          <td>
+            <span class="ind">{{ field['ind1'] || ' ' }}</span>
+          </td>
+          <td>
+            <span class="ind">{{ field['ind2'] || ' ' }}</span>
+          </td>
+          <td>
+            @if (isControlField(field)) {
+              <span class="value">{{
+                formatControlFieldValue(field['value'])
+              }}</span>
+            } @else {
+              @for (subfield of field['subfields']; track $index) {
+                <span class="subfield">$${{ subfield['code'] }}</span>
+                <span class="value">{{ subfield['value'] }} </span>
+              }
+            }
+          </td>
+        </tr>
+      }
+    </table>
+  </mat-expansion-panel>
+}
